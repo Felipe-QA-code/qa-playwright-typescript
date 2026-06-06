@@ -1,0 +1,22 @@
+{
+  "name": "qa-playwright-typescript",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Felipe-QA-code/qa-playwright-typescript.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Felipe-QA-code/qa-playwright-typescript/issues"
+  },
+  "homepage": "https://github.com/Felipe-QA-code/qa-playwright-typescript#readme",
+  "description": "",
+  "devDependencies": {
+    "@playwright/test": "^1.60.0",
+    "@types/node": "^25.9.2"
+  }
+}
