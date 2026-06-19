@@ -57,7 +57,10 @@ test ('dos o mas productos', async ({ page }) => {
   await expect(page.locator('#tbodyid')).toBeVisible();
   await expect(page.locator('#tbodyid tr')).toHaveCount(1);
   await page.getByText('Home').click();
-  await expect(page).toHaveURL('https://www.demoblaze.com/index.html');
+
+
+//test('2do prod', async ({ page }) => {
+
   await page.getByRole('link', { name : 'Nexus 6'}).click();
   await expect(page.locator('h2')).toContainText('Nexus 6');
   await expect(page.locator('h3')).toBeVisible();
@@ -67,4 +70,9 @@ test ('dos o mas productos', async ({ page }) => {
   });
   await page.getByText('Add to cart').click();
   await page.getByRole('link', { name: /Cart/ }).click();
+  await expect(page).toHaveURL('https://www.demoblaze.com/cart.html');
+  await page.waitForTimeout(2000);
+  await expect(page.locator('#tbodyid tr')).toHaveCount(2);
+  await expect(page.locator('#totalp')).toBeVisible();
+  //await page.click('button[data-test="Place Order"]');
 });
