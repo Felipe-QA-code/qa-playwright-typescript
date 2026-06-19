@@ -39,7 +39,7 @@ await page.locator('#year').fill('2026');
 await page.getByRole('button',{ name: 'Purchase'}).click();
 await expect(page.locator('.sweet-alert')).toBeVisible();
 await page.getByRole('button',{ name: 'OK'}).click();
-await expect(page).toHaveURL('https://www.demoblaze.com/index.html');
+await expect(page.locator('.sweet-alert')).not.toBeVisible();
 });
 
 test ('dos o mas productos', async ({ page }) => {
@@ -71,8 +71,19 @@ test ('dos o mas productos', async ({ page }) => {
   await page.getByText('Add to cart').click();
   await page.getByRole('link', { name: /Cart/ }).click();
   await expect(page).toHaveURL('https://www.demoblaze.com/cart.html');
-  await page.waitForTimeout(2000);
+  await expect(page.locator('#tbodyid')).toBeVisible();
   await expect(page.locator('#tbodyid tr')).toHaveCount(2);
   await expect(page.locator('#totalp')).toBeVisible();
-  //await page.click('button[data-test="Place Order"]');
+  await page.getByRole('button', { name : 'Place Order'}).click()
+  await expect(page.locator('#orderModal')).toBeVisible();
+  await page.locator('#name').fill('felipe');
+  await page.locator('#country').fill('cochabamba');
+  await page.locator('#city').fill('cercado');
+  await page.locator('#card').fill('123456');
+  await page.locator('#month').fill('july');
+  await page.locator('#year').fill('2026');
+  await page.getByRole('button', { name: 'Purchase'}).click();
+  await expect(page.locator('.sweet-alert')).toBeVisible();
+  await page.getByRole('button',{ name: 'OK'}).click();
+  await expect(page.locator('.sweet-alert')).not.toBeVisible();
 });
