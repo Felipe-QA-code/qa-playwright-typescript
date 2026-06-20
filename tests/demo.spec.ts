@@ -76,7 +76,7 @@ test ('dos o mas productos', async ({ page }) => {
   await expect(page.locator('#totalp')).toBeVisible();
   await page.getByRole('button', { name : 'Place Order'}).click()
   await expect(page.locator('#orderModal')).toBeVisible();
-  await page.locator('#name').fill('felipe');
+  await page.locator('#name').fill('felipe');// cambiando codigo
   await page.locator('#country').fill('cochabamba');
   await page.locator('#city').fill('cercado');
   await page.locator('#card').fill('123456');
