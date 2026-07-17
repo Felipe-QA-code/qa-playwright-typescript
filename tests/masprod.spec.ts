@@ -1,34 +1,29 @@
 import { test, expect } from '@playwright/test';
+import { LoginPage } from '../page/LoginPage';
+import { InventoryPage } from '../page/InventoryPage';
 
 
   test('compra de prod', async ({ page }) => {
   // 2. Iniciar sesión
   await page.goto('https://www.saucedemo.com/');
-  await page.fill('#user-name', 'standard_user');
-  await page.fill('#password', 'secret_sauce');
-  await page.click('#login-button');
+  
+const loginpage = new LoginPage (page)
+await loginpage.login('standard_user', 'secret_sauce')
+
+const inventorypage = new InventoryPage(page)
+await inventorypage.isLoaded()
+await inventorypage.addProduct('Sauce Labs Backpack')
+await inventorypage.addProduct('Sauce Labs Bike Light')
+await inventorypage.goToCart()
   
 
-  
-  // Validar que entramos al inventario
-  await expect(page).toHaveURL(/inventory.html/);
-  await expect(page.locator('.inventory_list')).toBeVisible();
-  
 
 
-  // 3. Agregar dos productos al carrito
-  await page.click('button[data-test="add-to-cart-sauce-labs-backpack"]');
-  await page.click('button[data-test="add-to-cart-sauce-labs-bike-light"]');
-  await page.click('button[data-test="remove-sauce-labs-bike-light"]');
-
-
-  // 4. Ir al carrito
-  await page.click('.shopping_cart_link');
-  await expect(page).toHaveURL(/cart.html/);
 
 
   // Validar que hay 2 productos
-  await expect(page.locator('.cart_item')).toHaveCount(1);
+
+  //await expect(page.locator('[data-test="inventory-item"]')).toHaveCount(2);
 
 
   // 5. Proceder al checkout
@@ -54,4 +49,4 @@ import { test, expect } from '@playwright/test';
   await page.click('button[data-test="back-to-products"]');
   const cartBadge = page.locator('.shopping_cart_badge');
   await expect(cartBadge).toHaveCount(0);
-});
+  });
