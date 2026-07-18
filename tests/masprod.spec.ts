@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage } from '../page/LoginPage';
 import { InventoryPage } from '../page/InventoryPage';
+import { CartPage } from '../page/CartPage';
 
 
 test('compra de prod', async ({ page }) => {
@@ -12,15 +13,23 @@ test('compra de prod', async ({ page }) => {
 
   const inventorypage = new InventoryPage(page)
   await inventorypage.isLoaded()
+
+  // Agragando productos
   await inventorypage.addProduct('Sauce Labs Backpack')
   await inventorypage.addProduct('Sauce Labs Bike Light')
+
+  // Ver carrito de compras
   await inventorypage.goToCart()
   
   // Validar que hay 2 productos
-  //await expect(page.locator('[data-test="inventory-item"]')).toHaveCount(2);
+  const cartpage = new CartPage(page)
+  await cartpage.validateProductCount(2)
 
   // 5. Proceder al checkout
-  await page.click('button[data-test="checkout"]');
+  await cartpage.proceedToCheckout()
+
+
+  
   await expect(page).toHaveURL(/.*checkout-step-one.html/)
 
   // 6. Llenar datos de envío
