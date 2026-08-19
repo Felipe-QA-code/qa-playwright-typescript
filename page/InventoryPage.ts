@@ -1,40 +1,31 @@
-import {Page, expect} from '@playwright/test';
+import { Page,expect } from '@playwright/test'
 
-export class InventoryPage{
+export class InventoryPage {
 
     private readonly inventoryList
-    private readonly ShoppingCartList
+    private readonly shoopingCart
 
-constructor (private page:Page) {
+constructor (private page:Page){
 
-this.inventoryList = page.locator('.inventory_list')
-this.ShoppingCartList = page.locator('.shopping_cart_link')
+    this.inventoryList = page.locator('[data-test="inventory-item"]')
+    this.shoopingCart  = page.locator('[data-test="shopping-cart-link"]')
+}
+async isLoaded () {
 
+    await expect(this.inventoryList.first()).toBeVisible();
 }
 
-async isLoaded (){
-
-await expect(this.inventoryList).toBeVisible
-
+async addProduct (productName:string) {
+    const product = this.inventoryList.filter({hasText:productName})
+    await product.getByRole('button', {name : 'Add to cart'}).click()
 }
 
-async addProduct (productName:string){
+async gotoCart () {
 
-    const product = this.page.locator('.inventory_item').filter({hasText: productName})
-    await product.getByRole('button', {name: 'Add to cart'}).click()
-
-}
-
-async goToCart(){
-
-    await this.ShoppingCartList.click()
-
+    await this.shoopingCart.click()
 }
 
 }
-
-
-
 
 // Validar que entramos al inventario
 //await expect(page).toHaveURL(/inventory.html/);
