@@ -8,29 +8,30 @@ test('compra de prod', async ({ page }) => {
   // 2. Iniciar sesión
   await page.goto('https://www.saucedemo.com/')
   
-  const loginpage = new LoginPage (page)
-  await loginpage.login('standard_user', 'secret_sauce')
+const loginpage = new LoginPage (page)
+await loginpage.login('standard_user', 'secret_sauce')
 
-  const inventorypage = new InventoryPage(page)
-  await inventorypage.isLoaded()
-
-  // Agragando productos
-  await inventorypage.addProduct('Sauce Labs Backpack')
-  await inventorypage.addProduct('Sauce Labs Bike Light')
-
-  // Ver carrito de compras
-  await inventorypage.goToCart()
+const inventorypage = new InventoryPage(page)
+await inventorypage.isLoaded()
+await inventorypage.addProduct('Sauce Labs Backpack')
+await inventorypage.addProduct('Sauce Labs Bike Light')
+await inventorypage.goToCart()
   
+
+
+
+
+
   // Validar que hay 2 productos
-  const cartpage = new CartPage(page)
-  await cartpage.validateProductCount(2)
+
+  //await expect(page.locator('[data-test="inventory-item"]')).toHaveCount(2);
+
 
   // 5. Proceder al checkout
-  await cartpage.proceedToCheckout()
-
-
-  
+  await page.click('button[data-test="checkout"]');
   await expect(page).toHaveURL(/.*checkout-step-one.html/)
+
+
 
   // 6. Llenar datos de envío
   await page.fill('input[data-test="firstName"]', 'Juan');

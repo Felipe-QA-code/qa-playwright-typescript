@@ -1,24 +1,26 @@
-import {Page} from '@playwright/test';
+  import { Page } from '@playwright/test'
 
-export class LoginPage{
+  export class LoginPage {
 
-    private readonly usernameInput;
-    private readonly passwordInput;
-    private readonly butonLogin;
+    private readonly username
+    private readonly password
+    private readonly loginButon
 
-    constructor ( private page:Page ) {
-        this.usernameInput = page.locator('[data-test="username"]')
-        this.passwordInput = page.locator('[data-test="password"]')
-        this.butonLogin = page.locator('[data-test="login-button"]')
-    }
+constructor ( private page:Page) {
 
-    async login (username:string , password:string){
-        await this.usernameInput.fill(username)
-        await this.passwordInput.fill(password)
-        await this.butonLogin.click()
-    }
+    this.username =   page.locator('[data-test="username"]')
+    this.password =   page.locator('[data-test="password"]')
+    this.loginButon = page.locator('[data-test="login-button"]')
 }
 
-//await page.locator('[data-test="username"]').fill('standard_user');
-//await page.locator('[data-test="password"]').fill('secret_sauce');
-//await page.locator('[data-test="login-button"]').click();
+async login (username:string , password:string){
+
+    await this.username.fill(username)
+    await this.password.fill(password)
+    await this.loginButon.click()
+}
+
+  }
+  //await page.locator('[data-test="username"]').fill('standard_user');
+  //await page.locator('[data-test="password"]').fill('secret_sauce');
+  //await page.locator('[data-test="login-button"]').click();
