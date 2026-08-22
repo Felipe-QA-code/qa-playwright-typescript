@@ -1,31 +1,33 @@
-import {Page} from '@playwright/test'
+import { Page,expect } from '@playwright/test'
 
 export class CheckoutPage {
 
-    private readonly FisrtName
-    private readonly LastName
-    private readonly PostalCode
-    private readonly ButonContinue
+    private readonly checkoutInfo
+    private readonly firstName
+    private readonly lastName
+    private readonly postalCode
+    private readonly butonContinue
 
-constructor (private page:Page) {
- 
-    this.FisrtName = page.locator('[data-test="firstName"]')
-    this.LastName =  page.locator('[data-test="lastName"]')
-    this.PostalCode =page.locator('[data-test="postalCode"]')
-    this.ButonContinue = page.locator('[data-test="continue"]')
+   constructor (private page:Page) {
+
+    this.checkoutInfo = page.locator('.checkout_info')
+    this.firstName = page.locator('[data-test="firstName"]')
+    this.lastName = page.locator('[data-test="lastName"]')
+    this.postalCode = page.locator('[data-test="postalCode"]')
+    this.butonContinue = page.locator ('[data-test="continue"]')
+   } 
+
+async Fillinformation (firstname : string , lastname:string , postalcode:string){
+
+    await expect (this.checkoutInfo).toBeVisible()
+    await this.firstName.fill(firstname)
+    await this.lastName.fill(lastname)
+    await this.postalCode.fill(postalcode)
 }
 
-async Fillinformation (firstname:string , lastname:string , postalcode:string){
+async gotocontinue (){
 
-    await this.FisrtName.fill (firstname)
-    await this.LastName.fill (lastname)
-    await this.PostalCode.fill(postalcode)
-
-}
-
-async gotocontinue () {
-
-    await this.ButonContinue.click()
+   await this.butonContinue.click()
 }
 
 }

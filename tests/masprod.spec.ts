@@ -18,7 +18,7 @@ const inventorypage = new InventoryPage(page)
 await inventorypage.isLoaded()
 await inventorypage.addProduct('Sauce Labs Backpack')
 await inventorypage.addProduct('Sauce Labs Bike Light')
-await inventorypage.gotoCart()
+await inventorypage.gotocartpage()
 
 const cartpage = new CartPage (page)
 await cartpage.validateProduct ('Sauce Labs Backpack')

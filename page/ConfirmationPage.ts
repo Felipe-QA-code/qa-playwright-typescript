@@ -14,6 +14,7 @@ export class ConfirmationPage {
 
     async validateConfirmation() {
 
+        console.log(await this.confirmationMessage.textContent()); 
         await expect(this.confirmationMessage)
             .toHaveText('Thank you for your order!');
 

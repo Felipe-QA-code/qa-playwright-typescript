@@ -1,40 +1,34 @@
-import { Page, expect } from '@playwright/test';
+import { Page, expect } from '@playwright/test'
 
 export class CheckoutOverviewPage {
 
-    private readonly productList;
-    private readonly totalLabel;
-    private readonly finishButton;
+    private readonly cartList
+    private readonly totaLabel
+    private readonly butonFisnish
 
-    constructor(private page: Page) {
+constructor (private page:Page) {
 
-        this.productList = page.locator('[data-test="inventory-item"]');
-        this.totalLabel = page.locator('[data-test="total-label"]');
-        this.finishButton = page.locator('[data-test="finish"]');
+    this.cartList = page.locator('[data-test="inventory-item"]')
+    this.totaLabel = page.locator ('[data-test="total-label"]')
+    this.butonFisnish = page.locator ('[data-test="total-label"]')
+}
 
-    }
+async validateProduct (productName : string) {
 
-    async validateProduct(productName: string) {
+    await expect (this.cartList.first()).toBeVisible()
+    const product = this.cartList.filter({hasText : productName})
+    await expect (product).toBeVisible()
+    await expect(this.totaLabel).toBeVisible()
+    
+}
 
-        const product = this.productList.filter({
-            hasText: productName
-        });
+async validateTotal (total:string) {
 
-        await expect(product).toBeVisible();
+await expect(this.totaLabel).toContainText(total)
 
-    }
-
-    async validateTotal(expectedTotal: string) {
-
-        await expect(this.totalLabel)
-            .toContainText(expectedTotal);
-
-    }
-
-    async finish() {
-
-        await this.finishButton.click();
-
-    }
+}
+async finish (){
+    await this.butonFisnish.click()
+}
 
 }

@@ -1,27 +1,29 @@
- import {Page,expect} from '@playwright/test';
+ import { Page,expect } from '@playwright/test'
 
  export class CartPage {
 
     private readonly cartList
-    private readonly butonChekout
+    private readonly butonCheckout
+    private readonly continueShoping
 
-constructor ( private page:Page) {
+constructor (private page:Page){
 
     this.cartList = page.locator('[data-test="cart-list"]')
-    this.butonChekout = page.locator('[data-test="checkout"]')
+    this.butonCheckout = page.locator('[data-test="checkout"]')
+    this.continueShoping = page.locator('[data-test="continue-shopping"]')
 }
 
-async validateProduct (productName:string) {
+async validateProduct (productName : string) {
 
-    const product = this.cartList.filter({hasText: productName});
+    const product = this.cartList.filter({hasText : productName})
     await expect(product).toBeVisible()
 }
 
 async gotocheckout () {
 
-    await this.butonChekout.click()
+    await this.butonCheckout.click()
 }
-
+    
  }
  // Validar que hay 2 productos
 
