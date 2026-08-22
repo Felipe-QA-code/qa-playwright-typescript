@@ -10,7 +10,9 @@ constructor (private page:Page) {
 
     this.cartList = page.locator('[data-test="inventory-item"]')
     this.totaLabel = page.locator ('[data-test="total-label"]')
-    this.butonFisnish = page.locator ('[data-test="total-label"]')
+    this.butonFisnish = page.locator ('[data-test="finish"]')
+    // this.butonFisnish = page.locator ('#finish')
+    // this.butonFisnish = page.locator ('//button[text()="Finish"]')
 }
 
 async validateProduct (productName : string) {
