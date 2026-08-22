@@ -5,7 +5,7 @@ export class InventoryPage {
     private readonly inventoryList
     private readonly shopingCart
 
-constructor (private page:Page){
+    constructor (private page:Page){
 
     this.inventoryList = page.locator('[data-test="inventory-list"]')
     this.shopingCart = page.locator('[data-test="shopping-cart-link"]')
