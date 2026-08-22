@@ -5,25 +5,24 @@ export class InventoryPage {
     private readonly inventoryList
     private readonly shoopingCart
 
-constructor (private page:Page){
+    constructor (private page:Page){
 
-    this.inventoryList = page.locator('[data-test="inventory-item"]')
-    this.shoopingCart  = page.locator('[data-test="shopping-cart-link"]')
-}
-async isLoaded () {
+        this.inventoryList = page.locator('[data-test="inventory-item"]')
+        this.shoopingCart  = page.locator('[data-test="shopping-cart-link"]')
+    }
 
-    await expect(this.inventoryList.first()).toBeVisible();
-}
+    async isLoaded () {
+        await expect(this.inventoryList.first()).toBeVisible();
+    }
 
-async addProduct (productName:string) {
-    const product = this.inventoryList.filter({hasText:productName})
-    await product.getByRole('button', {name : 'Add to cart'}).click()
-}
+    async addProduct (productName:string) {
+        const product = this.inventoryList.filter({hasText:productName})
+        await product.getByRole('button', {name : 'Add to cart'}).click()
+    }
 
-async gotoCart () {
-
-    await this.shoopingCart.click()
-}
+    async gotoCart () {
+        await this.shoopingCart.click()
+    }
 
 }
 
