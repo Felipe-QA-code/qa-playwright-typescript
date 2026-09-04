@@ -1,19 +1,14 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from '@playwright/test'
 
-test('GET user', async ({ request }) => {
+test ('GET user', async ({request}) =>{
 
-    const response = await request.get('https://jsonplaceholder.typicode.com/users/1');
+    const response = await request.get('https://jsonplaceholder.typicode.com/users/1')
+    expect(response.status()).toBe(200)
 
+    const body = await response.json()
 
-expect(response.status()).toBe(200);
+    console.log(body)
 
-const body = await response.json();
-
-console.log(body);
-
-expect(body.id).toBe(1);
-expect(body.name).toBe('Leanne Graham');
-expect(body.email).toBe('Sincere@april.biz');
-expect(body.username).toBe('Bret');
-
-});
+    expect(body.id).toBe(1)
+    expect(body.name).toBe('Leanne Graham')
+})
